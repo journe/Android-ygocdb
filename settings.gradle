@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     maven { url 'https://www.jitpack.io' }
   }
 }
-rootProject.name = "AndroidTemplate"
+rootProject.name = "Android-ygocdb"
 include ':app'

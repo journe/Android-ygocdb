@@ -1,4 +1,4 @@
-import tech.jour.template.buildsrc.ProjectBuildConfig
+import tech.jour.ygocdb.buildsrc.ProjectBuildConfig
 
 plugins {
   id 'com.android.application'
@@ -11,7 +11,7 @@ android {
   compileSdk 31
 
   defaultConfig {
-    applicationId "tech.jour.template"
+    applicationId "tech.jour.ygocdb"
     minSdk 21
     targetSdk 31
     versionCode 1
