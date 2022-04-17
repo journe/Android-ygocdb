@@ -1,45 +1,52 @@
 package tech.jour.ygocdb.module.home.fragment
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
+import dagger.hilt.android.AndroidEntryPoint
 import tech.jour.ygocdb.R
+import tech.jour.ygocdb.base.ktx.observeLiveData
+import tech.jour.ygocdb.common.ui.BaseFragment
 import tech.jour.ygocdb.databinding.FragmentFirstBinding
+import tech.jour.ygocdb.model.CardResult
+import tech.jour.ygocdb.module.home.activity.HomeViewModel
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
-class FirstFragment : Fragment() {
+@AndroidEntryPoint
+class FirstFragment : BaseFragment<FragmentFirstBinding, HomeViewModel>() {
 
-	private var _binding: FragmentFirstBinding? = null
+	override val mViewModel: HomeViewModel by activityViewModels()
 
-	// This property is only valid between onCreateView and
-	// onDestroyView.
-	private val binding get() = _binding!!
+	private val searchResultAdapter = SearchResultAdapter()
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-
-		_binding = FragmentFirstBinding.inflate(inflater, container, false)
-		return binding.root
-
-	}
-
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-
-		binding.buttonFirst.setOnClickListener {
+	override fun FragmentFirstBinding.initView() {
+		mBinding.buttonFirst.setOnClickListener {
 			findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 		}
+		mBinding.searchResultRv.adapter = searchResultAdapter
 	}
 
-	override fun onDestroyView() {
-		super.onDestroyView()
-		_binding = null
+	override fun initObserve() {
+		observeLiveData(mViewModel.searchResult, ::processData)
+//		lifecycleScope.launchWhenStarted {
+//			mViewModel.searchResult.collect {
+//				Logger.d("mViewModel.searchResult.collect ")
+//				searchResultAdapter.submitData(it)
+//			}
+//		}
+//		225 321
+	}
+
+	override fun initRequestData() {
+	}
+
+	private fun processData(data: PagingData<CardResult>) {
+		lifecycleScope.launchWhenStarted {
+			searchResultAdapter.submitData(data)
+		}
+//		toast(data.size)
+//		searchResultAdapter.submitData()
+//        mBinding.vTvHello.text = data
+//        mBinding.vTvHello.setTextColor(Color.BLUE)
 	}
 }

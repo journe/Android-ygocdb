@@ -7,16 +7,18 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import tech.jour.ygocdb.R
-import tech.jour.ygocdb.base.ktx.observeLiveData
 import tech.jour.ygocdb.base.utils.toast
 import tech.jour.ygocdb.common.ui.BaseActivity
 import tech.jour.ygocdb.databinding.ActivityMainBinding
+import tech.jour.ygocdb.model.CardResult
 
 /**
  * 首页
@@ -49,23 +51,35 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 
 		searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
-		val navController = findNavController(R.id.nav_host_fragment_content_main)
-		appBarConfiguration = AppBarConfiguration(navController.graph)
+
+		val host: NavHostFragment = supportFragmentManager
+			.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment? ?: return
+		val navController = host.navController
+
+		appBarConfiguration = AppBarConfiguration(
+			setOf(
+				R.id.FirstFragment,
+				R.id.SecondFragment,
+			),//顶层导航设置
+			mBinding.drawerLayout
+		)
 		setupActionBarWithNavController(navController, appBarConfiguration)
+		mBinding.navView.setupWithNavController(navController)
 
 		binding.fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()
 			showSearch(view as FloatingActionButton)
+//			mViewModel.getData()
 		}
 	}
 
 	override fun initObserve() {
-		observeLiveData(mViewModel.data, ::processData)
+//		observeLiveData(mViewModel.data, ::processData)
 	}
 
-	private fun processData(data: String) {
-		toast(data)
+	private fun processData(data: List<CardResult>) {
+		toast(data.size)
 //        mBinding.vTvHello.text = data
 //        mBinding.vTvHello.setTextColor(Color.BLUE)
 	}
@@ -83,8 +97,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 	}
 
 	override fun initRequestData() {
-		// 模拟获取数据
-		mViewModel.getData()
+
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,6 +108,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 		searchView = searchMenu.actionView as SearchView
 
 		searchView.apply {
+
 			// Assumes current activity is the searchable activity
 			setSearchableInfo(searchManager.getSearchableInfo(componentName))
 			setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
@@ -106,11 +120,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 			//搜索图标按钮(打开搜索框的按钮)的点击事件
 			setOnSearchClickListener {
 				toast("Open:打开")
+				setQuery("黑羽",false)
 			}
 			//搜索框文字变化监听
 			setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 				override fun onQueryTextSubmit(s: String): Boolean {
 					toast("搜索了:$s")
+//					mViewModel.getData(s)
+					mViewModel.submitSearch(s)
 					return false
 				}
 
@@ -135,8 +152,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 	}
 
 	override fun onSupportNavigateUp(): Boolean {
-		val navController = findNavController(R.id.nav_host_fragment_content_main)
-		return navController.navigateUp(appBarConfiguration)
-				|| super.onSupportNavigateUp()
+		return findNavController(R.id.nav_host_fragment_content_main).navigateUp(appBarConfiguration)
 	}
+
+//	override fun onSupportNavigateUp(): Boolean {
+//		val navController = findNavController(R.id.nav_host_fragment_content_main)
+//		return navController.navigateUp(appBarConfiguration)
+//				|| super.onSupportNavigateUp()
+//	}
 }

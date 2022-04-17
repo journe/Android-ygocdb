@@ -1,12 +1,17 @@
 package tech.jour.ygocdb.module.home.activity
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import tech.jour.ygocdb.base.ktx.launchIO
 import tech.jour.ygocdb.base.mvvm.vm.BaseViewModel
+import tech.jour.ygocdb.model.CardResult
 import javax.inject.Inject
 
 /**
@@ -20,16 +25,47 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val mRepository: HomeRepository) : BaseViewModel() {
 
-	val data = MutableLiveData<String>()
+	val data = MutableLiveData<List<CardResult>>()
+
+	private val _searchWord = MutableStateFlow("")
+
+	val searchWord: StateFlow<String> = _searchWord
+
+//	val searchResult = _searchWord.flatMapLatest {
+//		mRepository.search(it).catch {
+//			Logger.d("mRepository searchResult error")
+//		}.cachedIn(viewModelScope).stateIn(viewModelScope)
+//	}.catch {
+//		Logger.d("searchResult error")
+//	}
+
+
+	private val _searchResult = MutableLiveData<PagingData<CardResult>>()
+	val searchResult: LiveData<PagingData<CardResult>> = _searchResult
 
 	/**
 	 * 模拟获取数据
 	 */
-	fun getData() {
+	fun getData(search: String) {
 		launchIO {
-			mRepository.getData()
-				.catch { Log.d("qqq", "getData: $it") }
+			mRepository.getData(search)
+				.catch { Logger.d("getData: $it") }
 				.collect { data.postValue(it) }
 		}
+	}
+
+	fun search(search: String) = mRepository.search(search)
+		.cachedIn(viewModelScope)
+
+	fun submitSearch(search: String) {
+		if (!search.isNullOrEmpty()) {
+//			_searchWord.value = search
+			viewModelScope.launch {
+				mRepository.search(search).cachedIn(viewModelScope).collectLatest {
+					_searchResult.value = it
+				}
+			}
+		}
+
 	}
 }

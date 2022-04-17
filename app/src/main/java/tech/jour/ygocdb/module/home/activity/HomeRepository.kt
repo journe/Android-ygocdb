@@ -1,8 +1,11 @@
 package tech.jour.ygocdb.module.home.activity
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import tech.jour.ygocdb.base.mvvm.m.BaseRepository
+import tech.jour.ygocdb.model.CardResult
+import tech.jour.ygocdb.module.home.fragment.SearchPagingSource
 import tech.jour.ygocdb.module.home.net.HomeApiService
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 /**
@@ -13,14 +16,19 @@ import javax.inject.Inject
  */
 class HomeRepository @Inject constructor() : BaseRepository() {
 
-    @Inject
-    lateinit var mApi: HomeApiService
+	@Inject
+	lateinit var mApi: HomeApiService
 
-    /**
-     * 模拟获取数据
-     */
-    suspend fun getData() = request<String> {
-        delay(1000L)
-        emit("Hello Hilt")
-    }
+	/**
+	 * 模拟获取数据
+	 */
+	suspend fun getData(search: String) = request<List<CardResult>> {
+		val res = mApi.getSearch(search)
+		emit(res.result)
+	}
+
+	fun search(query: String) =
+		Pager(PagingConfig(pageSize = 20)) { SearchPagingSource(mApi, query) }.flow
+
+
 }
