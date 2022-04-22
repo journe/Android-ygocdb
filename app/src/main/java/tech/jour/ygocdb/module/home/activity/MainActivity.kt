@@ -79,7 +79,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 	}
 
 	private fun processData(data: List<CardResult>) {
-		toast(data.size)
 //        mBinding.vTvHello.text = data
 //        mBinding.vTvHello.setTextColor(Color.BLUE)
 	}
@@ -93,7 +92,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 			searchMenu.expandActionView()
 			fab.setImageResource(R.drawable.ic_baseline_send_24)
 		}
-
 	}
 
 	override fun initRequestData() {
@@ -114,19 +112,19 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 			setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
 			//搜索框展开时后面叉叉按钮的点击事件
 			setOnCloseListener {
-				toast("Close:关闭")
 				false
 			}
 			//搜索图标按钮(打开搜索框的按钮)的点击事件
 			setOnSearchClickListener {
-				toast("Open:打开")
-				setQuery("黑羽",false)
+				setQuery("黑羽", false)
 			}
 			//搜索框文字变化监听
 			setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 				override fun onQueryTextSubmit(s: String): Boolean {
-					toast("搜索了:$s")
+//					toast("搜索了:$s")
 //					mViewModel.getData(s)
+					searchMenu.collapseActionView()
+					mBinding.fab.setImageResource(R.drawable.ic_baseline_search_24)
 					mViewModel.submitSearch(s)
 					return false
 				}

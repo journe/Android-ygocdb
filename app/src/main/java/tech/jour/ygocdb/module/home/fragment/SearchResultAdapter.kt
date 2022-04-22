@@ -4,14 +4,19 @@ package tech.jour.ygocdb.module.home.fragment
  * Created by journey on 2022/4/16.
  */
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.util.SmartGlideImageLoader
 import tech.jour.ygocdb.databinding.FragmentSearchListItemBinding
 import tech.jour.ygocdb.model.CardResult
 import tech.jour.ygocdb.model.cardUrl
+import tech.jour.ygocdb.model.cardUrlBig
+import tech.jour.ygocdb.module.home.CardDetailAttachPopup
 
 class SearchResultAdapter :
 	PagingDataAdapter<CardResult, SearchResultAdapter.ViewHolder>(
@@ -41,13 +46,29 @@ class SearchResultAdapter :
 	inner class ViewHolder(private val binding: FragmentSearchListItemBinding) :
 		RecyclerView.ViewHolder(binding.root) {
 		fun bind(item: CardResult) {
+			val onClickListener = View.OnClickListener {
+				XPopup.Builder(binding.root.context)
+					.isDestroyOnDismiss(true)
+					.atView(binding.cardCnNameTv)
+					.hasShadowBg(false) // 去掉半透明背景
+					.asCustom(CardDetailAttachPopup(binding.root.context, item.text))
+					.show()
+			}
 			binding.apply {
 				cardCnNameTv.text = item.cn_name
 				cardJpNameTv.text = item.jp_name
 				cardEnNameTv.text = item.en_name
+				cardCnNameTv.setOnClickListener(onClickListener)
+				cardJpNameTv.setOnClickListener(onClickListener)
+				cardEnNameTv.setOnClickListener(onClickListener)
 				cardId.text = item.id.toString()
 				cardCid.text = item.cid.toString()
 				cardIv.load(item.cardUrl())
+				cardIv.setOnClickListener {
+					XPopup.Builder(it.context)
+						.asImageViewer(cardIv, item.cardUrlBig(), SmartGlideImageLoader())
+						.show()
+				}
 			}
 		}
 	}

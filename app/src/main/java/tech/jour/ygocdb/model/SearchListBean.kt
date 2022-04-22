@@ -41,3 +41,4 @@ data class CardText(
 )
 
 fun CardResult.cardUrl() = "https://cdn.233.momobako.com/ygopro/pics/${this.id}.jpg!half"
+fun CardResult.cardUrlBig() = "https://cdn.233.momobako.com/ygopro/pics/${this.id}.jpg!"
