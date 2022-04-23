@@ -50,7 +50,7 @@ class SearchResultAdapter :
 				XPopup.Builder(binding.root.context)
 					.isDestroyOnDismiss(true)
 					.atView(binding.cardCnNameTv)
-					.hasShadowBg(false) // 去掉半透明背景
+					.hasShadowBg(true) // 半透明背景
 					.asCustom(CardDetailAttachPopup(binding.root.context, item.text))
 					.show()
 			}

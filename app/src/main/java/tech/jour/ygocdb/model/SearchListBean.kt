@@ -30,7 +30,7 @@ data class CardData(
 	val level: Int,
 	val ot: Int,
 	val race: Int,
-	val setcode: Int,
+	val setcode: Long,
 	val type: Int
 )
 

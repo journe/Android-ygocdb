@@ -1,56 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@drawable/side_nav_bar"
+    android:background="@drawable/bg_side_nav_bar"
     android:gravity="bottom"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
-
-  <ImageView
-      android:id="@+id/avatar_img"
-      android:layout_width="52dp"
-      android:layout_height="52dp"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="72dp"
-      app:layout_constraintBottom_toTopOf="@+id/username_tv"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_launcher_play_store_512"
-      />
-
-  <TextView
-      android:id="@+id/username_tv"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingTop="8dp"
-      android:text="action_sign_in"
-      android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-      android:textStyle="bold"
-      app:layout_constraintEnd_toEndOf="@+id/avatar_img"
-      app:layout_constraintStart_toStartOf="@+id/avatar_img"
-      app:layout_constraintTop_toBottomOf="@+id/avatar_img"
-      />
-  <TextView
-      android:id="@+id/award"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBaseline="@id/username_tv"
-      android:layout_alignParentEnd="true"
-      android:layout_marginEnd="8dp"
-      android:drawablePadding="4dp"
-      android:gravity="center_vertical"
-      android:paddingTop="8dp"
-      android:paddingEnd="4dp"
-      android:paddingBottom="8dp"
-      android:text="tv_daily_bonus"
-      android:textColor="#fff"
-      android:textStyle="bold|italic"
-      app:layout_constraintBottom_toBottomOf="@+id/username_tv"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/avatar_img"
-      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

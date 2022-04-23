@@ -20,9 +20,9 @@ class FirstFragment : BaseFragment<FragmentFirstBinding, HomeViewModel>() {
 	private val searchResultAdapter = SearchResultAdapter()
 
 	override fun FragmentFirstBinding.initView() {
-		mBinding.buttonFirst.setOnClickListener {
-			findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-		}
+//		mBinding.buttonFirst.setOnClickListener {
+//			findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+//		}
 		mBinding.searchResultRv.adapter = searchResultAdapter
 	}
 

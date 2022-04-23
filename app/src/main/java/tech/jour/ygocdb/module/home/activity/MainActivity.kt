@@ -86,6 +86,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 
 	private fun showSearch(fab: FloatingActionButton) {
 		if (searchMenu.isActionViewExpanded) {
+			mViewModel.submitSearch(searchView.query.toString())
 			searchMenu.collapseActionView()
 			fab.setImageResource(R.drawable.ic_baseline_search_24)
 		} else {
@@ -145,6 +146,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
 		// as you specify a parent activity in AndroidManifest.xml.
 		return when (item.itemId) {
 			R.id.action_settings -> true
+			R.id.menu_search -> true
 			else -> super.onOptionsItemSelected(item)
 		}
 	}
