@@ -1,6 +1,7 @@
 package tech.jour.ygocdb.common.ui
 
 import android.util.Log
+import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 import tech.jour.ygocdb.base.mvvm.v.BaseFrameActivity
 import tech.jour.ygocdb.base.mvvm.vm.BaseViewModel

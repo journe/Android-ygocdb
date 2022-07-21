@@ -2,27 +2,22 @@ package tech.jour.ygocdb.module.home.fragment
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import dagger.hilt.android.AndroidEntryPoint
-import tech.jour.ygocdb.R
 import tech.jour.ygocdb.base.ktx.observeLiveData
 import tech.jour.ygocdb.common.ui.BaseFragment
-import tech.jour.ygocdb.databinding.FragmentFirstBinding
+import tech.jour.ygocdb.databinding.FragmentSearchBinding
 import tech.jour.ygocdb.model.CardResult
-import tech.jour.ygocdb.module.home.activity.HomeViewModel
+import tech.jour.ygocdb.module.home.activity.MainViewModel
 
 @AndroidEntryPoint
-class FirstFragment : BaseFragment<FragmentFirstBinding, HomeViewModel>() {
+class SearchFragment : BaseFragment<FragmentSearchBinding, MainViewModel>() {
 
-	override val mViewModel: HomeViewModel by activityViewModels()
+	override val mViewModel: MainViewModel by activityViewModels()
 
 	private val searchResultAdapter = SearchResultAdapter()
 
-	override fun FragmentFirstBinding.initView() {
-//		mBinding.buttonFirst.setOnClickListener {
-//			findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//		}
+	override fun FragmentSearchBinding.initView() {
 		mBinding.searchResultRv.adapter = searchResultAdapter
 	}
 
@@ -44,9 +39,5 @@ class FirstFragment : BaseFragment<FragmentFirstBinding, HomeViewModel>() {
 		lifecycleScope.launchWhenStarted {
 			searchResultAdapter.submitData(data)
 		}
-//		toast(data.size)
-//		searchResultAdapter.submitData()
-//        mBinding.vTvHello.text = data
-//        mBinding.vTvHello.setTextColor(Color.BLUE)
 	}
 }

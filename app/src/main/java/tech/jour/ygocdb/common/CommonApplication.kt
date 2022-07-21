@@ -13,6 +13,7 @@ import tech.jour.ygocdb.BuildConfig
 import tech.jour.ygocdb.base.BaseApplication
 import tech.jour.ygocdb.base.app.ApplicationLifecycle
 import tech.jour.ygocdb.base.utils.ProcessUtils
+import tech.jour.ygocdb.base.utils.SpUtils
 import tech.jour.ygocdb.base.utils.network.NetworkStateClient
 
 //import com.tencent.bugly.crashreport.CrashReport
@@ -103,8 +104,8 @@ class CommonApplication : ApplicationLifecycle {
 	 * 腾讯 MMKV 初始化
 	 */
 	private fun initMMKV(): String {
-//        val result = SpUtils.initMMKV(BaseApplication.context)
-		return "MMKV -->> "
+        val result = SpUtils.initMMKV(BaseApplication.context)
+		return "MMKV -->> $result"
 	}
 
 //    /**

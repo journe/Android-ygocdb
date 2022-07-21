@@ -5,7 +5,7 @@
 
   <group android:checkableBehavior="single">
     <item
-        android:id="@+id/FirstFragment"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/action_search" />
   </group>
@@ -14,7 +14,7 @@
       android:checkableBehavior="none"
       android:menuCategory="secondary">
     <item
-        android:id="@+id/SecondFragment"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/action_settings" />
     <item

@@ -7,6 +7,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
+import com.orhanobut.logger.Logger
 import tech.jour.ygocdb.base.ktx.ViewClickDelay.SPACE_TIME
 import tech.jour.ygocdb.base.ktx.ViewClickDelay.hash
 import tech.jour.ygocdb.base.ktx.ViewClickDelay.lastClickTime
@@ -217,7 +218,7 @@ fun View.getViewId(): Int {
 object ViewClickDelay {
     var hash: Int = 0
     var lastClickTime: Long = 0
-    var SPACE_TIME: Long = 2000  // 间隔时间
+    var SPACE_TIME: Long = 500  // 间隔时间
 }
 
 /**
@@ -239,4 +240,8 @@ infix fun View.clickDelay(clickAction: () -> Unit) {
             }
         }
     }
+}
+
+fun Any.d(){
+    Logger.d(this)
 }
