@@ -14,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.converter.gson.GsonConverterFactory
 import tech.jour.ygocdb.BuildConfig
+import tech.jour.ygocdb.common.helper.HttpLogger
 import javax.inject.Singleton
 
 /**
@@ -36,11 +37,11 @@ class DINetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
         // 日志拦截器部分
         val level = if (BuildConfig.VERSION_TYPE != VersionStatus.RELEASE) BODY else NONE
-        val logInterceptor = HttpLoggingInterceptor().setLevel(level)
+        val logInterceptor = HttpLoggingInterceptor(HttpLogger()).setLevel(level)
 
         return OkHttpClient.Builder()
-            .connectTimeout(15L * 1000L, TimeUnit.MILLISECONDS)
-            .readTimeout(20L * 1000L, TimeUnit.MILLISECONDS)
+            .connectTimeout(10L * 1000L, TimeUnit.MILLISECONDS)
+            .readTimeout(10L * 1000L, TimeUnit.MILLISECONDS)
             .addInterceptor(logInterceptor)
             .retryOnConnectionFailure(true)
             .build()

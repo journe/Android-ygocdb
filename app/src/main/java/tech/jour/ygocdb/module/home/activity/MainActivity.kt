@@ -1,19 +1,26 @@
 package tech.jour.ygocdb.module.home.activity
 
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.android.material.snackbar.Snackbar
-import tech.jour.ygocdb.base.ktx.observeLiveData
-import tech.jour.ygocdb.common.ui.BaseActivity
+import androidx.navigation.ui.setupWithNavController
+import com.orhanobut.logger.Logger
+import com.tcqq.searchview.Search
 import dagger.hilt.android.AndroidEntryPoint
+import eu.davidea.flexibleadapter.FlexibleAdapter
+import eu.davidea.flexibleadapter.items.IFlexible
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import tech.jour.ygocdb.R
-import tech.jour.ygocdb.base.utils.toast
+import tech.jour.ygocdb.common.ui.BaseActivity
 import tech.jour.ygocdb.databinding.ActivityMainBinding
+import tech.jour.ygocdb.model.SuggestionsItem
+
 
 /**
  * 首页
@@ -22,66 +29,104 @@ import tech.jour.ygocdb.databinding.ActivityMainBinding
  * @since 5/22/21 2:26 PM
  */
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, HomeViewModel>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     /**
      * 通过 viewModels() + Hilt 获取 ViewModel 实例
      */
-    override val mViewModel by viewModels<HomeViewModel>()
+    override val mViewModel by viewModels<MainViewModel>()
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var suggestionsAdapter: FlexibleAdapter<IFlexible<*>>
 
     override fun ActivityMainBinding.initView() {
-        val binding = mBinding
-        setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        val host: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment? ?: return
+        val navController = host.navController
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        mBinding.navView.setupWithNavController(navController)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        suggestionsAdapter = FlexibleAdapter(null, object : FlexibleAdapter.OnItemClickListener {
+            override fun onItemClick(view: View?, position: Int): Boolean {
+                val item = suggestionsAdapter.getItem(position, SuggestionsItem::class.java)!!
+                mBinding.layoutHome.searchView.setQuery(item.query, true)
+                return false
+            }
+
+        }, true)
+
+        mBinding.layoutHome.searchView.adapter = suggestionsAdapter
+        mBinding.layoutHome.searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: CharSequence) {
+//                Logger.d("onQueryTextSubmit#query: $query")
+                mBinding.layoutHome.searchView.close(false)
+                mViewModel.submitSearch(query.toString())
+                navController.navigate(R.id.searchFragment)
+            }
+
+            override fun onQueryTextChange(newText: CharSequence) {
+//                Logger.d("onQueryTextChange#newText: $newText")
+            }
+        })
+        mBinding.layoutHome.searchView.setOnBackClickListener(object : Search.OnBackClickListener {
+            override fun onBackClick(hasFocus: Boolean) {
+                Logger.d("onBackClick#hasFocus: $hasFocus")
+                if (hasFocus) {
+                    mBinding.layoutHome.searchView.close()
+                } else {
+                    mBinding.drawerLayout.open()
+                }
+            }
+        })
+        mBinding.navView.setNavigationItemSelectedListener {
+            navController.navigate(it.itemId)
+            mBinding.drawerLayout.close()
+            true
         }
+        mBinding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+//                if (slideOffset < 0.3) animateLogoHamburgerToLogoArrow()
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                mBinding.layoutHome.searchView.setLogoHamburgerToLogoArrowWithAnimation(true)
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                mBinding.layoutHome.searchView.setLogoHamburgerToLogoArrowWithAnimation(false)
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+            }
+
+        })
     }
 
     override fun initObserve() {
-        observeLiveData(mViewModel.data, ::processData)
-    }
 
-    private fun processData(data: String) {
-        toast(data)
-//        mBinding.vTvHello.text = data
-//        mBinding.vTvHello.setTextColor(Color.BLUE)
     }
 
     override fun initRequestData() {
-        // 模拟获取数据
-        mViewModel.getData()
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        lifecycleScope.launch {
+            mViewModel.getRecentList().collectLatest {
+                if (it != null) {
+                    suggestionsAdapter.updateDataSet(
+                        it.map {
+                            SuggestionsItem(query = it.query)
+                        }
+                    )
+                }
+            }
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return findNavController(R.id.nav_host_fragment_content_main).navigateUp(appBarConfiguration)
+//    }
+
+//	override fun onSupportNavigateUp(): Boolean {
+//		val navController = findNavController(R.id.nav_host_fragment_content_main)
+//		return navController.navigateUp(appBarConfiguration)
+//				|| super.onSupportNavigateUp()
+//	}
 }

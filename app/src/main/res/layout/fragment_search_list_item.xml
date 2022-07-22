@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="144dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="4dp"
+    >
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/card_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="avatar"
+        android:scaleType="centerCrop"
+        android:transitionName="header_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="225:321"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars"
+        />
+    <TextView
+        android:id="@+id/card_cn_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:singleLine="true"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/text_size_large_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/card_iv"
+        app:layout_constraintTop_toTopOf="@+id/card_iv"
+        tools:text="睡巨人 咕咚"
+        />
+
+    <TextView
+        android:id="@+id/card_jp_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/text_size_large_3"
+        android:transitionName="header_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/card_cn_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/card_cn_name_tv"
+        tools:text="眠れる巨人ズシン"
+        />
+
+    <TextView
+        android:id="@+id/card_en_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:textColor="#00a296"
+        android:textSize="@dimen/text_size_large_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/card_cn_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/card_jp_name_tv"
+        tools:text="@tools:sample/full_names"
+        />
+
+    <TextView
+        android:id="@+id/card_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/text_size_large_3"
+        app:layout_constraintStart_toStartOf="@+id/card_cn_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/card_en_name_tv"
+        tools:text="27189308"
+        />
+    <TextView
+        android:id="@+id/card_cid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/card_id"
+        app:layout_constraintStart_toEndOf="@+id/card_id"
+        tools:text="10640"
+        />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

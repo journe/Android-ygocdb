@@ -8,11 +8,13 @@ package tech.jour.ygocdb.common.constant
  */
 internal object NetBaseUrlConstant {
 
-    val MAIN_URL = "http://www.baidu.com"
-    get() {
-        if (field.isEmpty()){
-            throw NotImplementedError("请求改你的 MAIN_URL 的值为自己的请求地址")
-        }
-       return  field
-    }
+	val MAIN_URL = "https://ygocdb.com"
+		get() {
+			if (field.isEmpty()) {
+				throw NotImplementedError("MAIN_URL ERROR")
+			}
+			return field
+		}
+
+	const val SEARCH = "/api/v0/"
 }
