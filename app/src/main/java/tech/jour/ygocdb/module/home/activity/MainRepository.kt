@@ -35,7 +35,9 @@ class MainRepository @Inject constructor() : BaseRepository() {
     fun search(query: String) =
         Pager(PagingConfig(pageSize = 20)) { SearchPagingSource(mApi, query) }.flow
 
-    suspend fun insertSearchHistory(bean: SearchHistoryBean) {
+    fun insertSearchHistory(bean: SearchHistoryBean) {
         historyDao.insert(bean)
     }
+
+    fun getRecentList() = historyDao.getRecentList()
 }

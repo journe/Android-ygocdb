@@ -3,6 +3,7 @@ package tech.jour.ygocdb.module.home.activity
 import android.view.View
 import androidx.activity.viewModels
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,6 +14,8 @@ import com.tcqq.searchview.Search
 import dagger.hilt.android.AndroidEntryPoint
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.IFlexible
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import tech.jour.ygocdb.R
 import tech.jour.ygocdb.common.ui.BaseActivity
 import tech.jour.ygocdb.databinding.ActivityMainBinding
@@ -33,8 +36,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
      */
     override val mViewModel by viewModels<MainViewModel>()
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-
     private lateinit var suggestionsAdapter: FlexibleAdapter<IFlexible<*>>
 
     override fun ActivityMainBinding.initView() {
@@ -43,14 +44,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment? ?: return
         val navController = host.navController
 
-//        appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.searchFragment,
-//                R.id.homeFragment,
-//            ),//顶层导航设置
-//            mBinding.drawerLayout
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
         mBinding.navView.setupWithNavController(navController)
 
         suggestionsAdapter = FlexibleAdapter(null, object : FlexibleAdapter.OnItemClickListener {
@@ -61,7 +54,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             }
 
         }, true)
-        suggestionsAdapter.updateDataSet(getSuggestionsItems())
 
         mBinding.layoutHome.searchView.adapter = suggestionsAdapter
         mBinding.layoutHome.searchView.setOnQueryTextListener(object : Search.OnQueryTextListener {
@@ -69,6 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 //                Logger.d("onQueryTextSubmit#query: $query")
                 mBinding.layoutHome.searchView.close(false)
                 mViewModel.submitSearch(query.toString())
+                navController.navigate(R.id.searchFragment)
             }
 
             override fun onQueryTextChange(newText: CharSequence) {
@@ -110,25 +103,26 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun initObserve() {
+
     }
 
     override fun initRequestData() {
-
-    }
-
-
-    private fun getSuggestionsItems(): List<IFlexible<*>> {
-        var index = -1
-        val items = ArrayList<IFlexible<*>>()
-        while (index < 5) {
-            items.add(SuggestionsItem("${++index}", "Title$index"))
+        lifecycleScope.launch {
+            mViewModel.getRecentList().collectLatest {
+                if (it != null) {
+                    suggestionsAdapter.updateDataSet(
+                        it.map {
+                            SuggestionsItem(query = it.query)
+                        }
+                    )
+                }
+            }
         }
-        return items
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host_fragment_content_main).navigateUp(appBarConfiguration)
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return findNavController(R.id.nav_host_fragment_content_main).navigateUp(appBarConfiguration)
+//    }
 
 //	override fun onSupportNavigateUp(): Boolean {
 //		val navController = findNavController(R.id.nav_host_fragment_content_main)

@@ -118,6 +118,7 @@ dependencies {
     implementation 'com.github.tcqq:searchview:2.0.3'
     implementation 'com.github.florent37:viewanimator:1.1.2'
     implementation 'eu.davidea:flexible-adapter:5.1.0'
+    implementation 'com.blankj:utilcodex:1.31.0'
 
     debugImplementation 'com.guolindev.glance:glance:1.1.0'
     debugImplementation 'cat.ereza:customactivityoncrash:2.3.0'

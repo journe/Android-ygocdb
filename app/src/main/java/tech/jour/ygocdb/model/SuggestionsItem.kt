@@ -15,7 +15,7 @@ import tech.jour.ygocdb.R
  * @since 2018-12-05 Created
  */
 data class SuggestionsItem(
-    val id: String,
+    val id: String = "",
     val query: String,
     val subtitle: String = ""
 ) : AbstractFlexibleItem<SuggestionsItem.ViewHolder>() {

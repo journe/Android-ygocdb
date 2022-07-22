@@ -63,7 +63,9 @@ class MainViewModel @Inject constructor(private val mRepository: MainRepository)
         }
     }
 
-    private suspend fun insertSearchHistory(bean: SearchHistoryBean) {
+    private fun insertSearchHistory(bean: SearchHistoryBean) {
         mRepository.insertSearchHistory(bean)
     }
+
+    fun getRecentList() = mRepository.getRecentList()
 }

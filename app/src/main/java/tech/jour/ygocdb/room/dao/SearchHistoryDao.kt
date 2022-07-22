@@ -1,16 +1,17 @@
 package tech.jour.ygocdb.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import tech.jour.ygocdb.module.home.database.SearchHistoryBean
 
 @Dao
 interface SearchHistoryDao {
-//    @Query("SELECT * FROM SearchHistoryBean WHERE id = :id LIMIT 1")
-//    fun getById(id: Int): SearchHistoryBean?
+    @Query("SELECT * FROM SearchHistoryBean ORDER BY  updateTime DESC  LIMIT :count")
+    fun getRecentList(count: Int = 20): Flow<List<SearchHistoryBean>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(obj: SearchHistoryBean)
+    fun insert(obj: SearchHistoryBean)
+
+    @Query("DELETE FROM SearchHistoryBean")
+    fun deleteAll()
 }
