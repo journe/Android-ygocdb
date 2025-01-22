@@ -7,9 +7,6 @@ import tech.jour.ygocdb.model.SearchListBean
 
 /**
  * Home模块的接口
- *
- * @author Qu Yunshuo
- * @since 6/4/21 5:51 PM
  */
 interface HomeApiService {
 	@GET(NetBaseUrlConstant.SEARCH)

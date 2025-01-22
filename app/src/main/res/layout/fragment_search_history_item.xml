@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="4dp"
+    >
+
+
+  <TextView
+      android:id="@+id/searchbar_suggestion_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="16dp"
+      android:textAppearance="?attr/textAppearanceBody2"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="481 Van Brunt Street"
+      />
+
+  <TextView
+      android:id="@+id/searchbar_suggestion_subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?attr/textAppearanceCaption"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="@+id/searchbar_suggestion_title"
+      app:layout_constraintTop_toBottomOf="@+id/searchbar_suggestion_title"
+      tools:text="Brooklyn, NY"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

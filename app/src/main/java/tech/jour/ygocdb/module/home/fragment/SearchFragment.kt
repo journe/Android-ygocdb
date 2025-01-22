@@ -4,6 +4,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import tech.jour.ygocdb.base.ktx.observeLiveData
 import tech.jour.ygocdb.common.ui.BaseFragment
 import tech.jour.ygocdb.databinding.FragmentSearchBinding
@@ -23,20 +24,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, MainViewModel>() {
 
 	override fun initObserve() {
 		observeLiveData(mViewModel.searchResult, ::processData)
-//		lifecycleScope.launchWhenStarted {
-//			mViewModel.searchResult.collect {
-//				Logger.d("mViewModel.searchResult.collect ")
-//				searchResultAdapter.submitData(it)
-//			}
-//		}
-//		225 321
 	}
 
 	override fun initRequestData() {
 	}
 
 	private fun processData(data: PagingData<CardResult>) {
-		lifecycleScope.launchWhenStarted {
+		lifecycleScope.launch {
 			searchResultAdapter.submitData(data)
 		}
 	}

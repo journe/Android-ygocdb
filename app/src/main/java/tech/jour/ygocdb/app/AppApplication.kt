@@ -1,5 +1,6 @@
 package tech.jour.ygocdb.app
 
+import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.HiltAndroidApp
 import tech.jour.ygocdb.base.BaseApplication
 
@@ -13,5 +14,7 @@ class AppApplication : BaseApplication() {
 ////            .addIndex(MainEventIndex())
 //            .installDefaultEventBus()
 		super.onCreate()
+
+//		DynamicColors.applyToActivitiesIfAvailable(this)
 	}
 }

@@ -56,11 +56,10 @@ class SearchResultAdapter :
 			}
 			binding.apply {
 				cardCnNameTv.text = item.cn_name
+				cardMdNameTv.text = item.md_name
 				cardJpNameTv.text = item.jp_name
 				cardEnNameTv.text = item.en_name
-				cardCnNameTv.setOnClickListener(onClickListener)
-				cardJpNameTv.setOnClickListener(onClickListener)
-				cardEnNameTv.setOnClickListener(onClickListener)
+				cardCLickView.setOnClickListener(onClickListener)
 				cardId.text = item.id.toString()
 				cardCid.text = item.cid.toString()
 				cardIv.load(item.cardUrl())

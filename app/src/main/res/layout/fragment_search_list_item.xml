@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,6 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
-    app:cardCornerRadius="4dp"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
@@ -28,11 +27,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars"
         />
+    <View
+        android:id="@+id/cardCLickView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/card_iv"
+        app:layout_constraintTop_toTopOf="@+id/card_cn_name_tv"
+        />
     <TextView
         android:id="@+id/card_cn_name_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:singleLine="true"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="@dimen/text_size_large_3"
@@ -43,16 +52,31 @@
         />
 
     <TextView
-        android:id="@+id/card_jp_name_tv"
+        android:id="@+id/card_md_name_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:singleLine="true"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="@dimen/text_size_large_3"
+        android:textSize="@dimen/text_size_large"
         android:transitionName="header_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/card_cn_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/card_cn_name_tv"
+        tools:text="MD中文名称"
+        />
+    <TextView
+        android:id="@+id/card_jp_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:singleLine="true"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/text_size_medium"
+        android:transitionName="header_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/card_md_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/card_md_name_tv"
         tools:text="眠れる巨人ズシン"
         />
 
@@ -62,7 +86,7 @@
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:textColor="#00a296"
-        android:textSize="@dimen/text_size_large_3"
+        android:textSize="@dimen/text_size_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/card_cn_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/card_jp_name_tv"
@@ -74,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="@dimen/text_size_large_3"
+        android:textSize="@dimen/text_size_medium"
         app:layout_constraintStart_toStartOf="@+id/card_cn_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/card_en_name_tv"
         tools:text="27189308"
@@ -94,4 +118,4 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
