@@ -9,7 +9,6 @@
     app:cardCornerRadius="4dp"
     >
 
-
   <TextView
       android:id="@+id/searchbar_suggestion_title"
       android:layout_width="wrap_content"
@@ -19,7 +18,7 @@
       android:textAppearance="?attr/textAppearanceBody2"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:text="481 Van Brunt Street"
+      tools:text="@tools:sample/cities"
       />
 
   <TextView

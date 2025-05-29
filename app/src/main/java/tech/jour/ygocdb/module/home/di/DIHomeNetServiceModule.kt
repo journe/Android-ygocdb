@@ -18,15 +18,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DIHomeNetServiceModule {
 
-    /**
-     * Home模块的[HomeApiService]依赖提供方法
-     *
-     * @param retrofit Retrofit
-     * @return HomeApiService
-     */
-    @Singleton
-    @Provides
-    fun provideHomeApiService(retrofit: Retrofit): HomeApiService {
-        return retrofit.create(HomeApiService::class.java)
-    }
+	/**
+	 * Home模块的[HomeApiService]依赖提供方法
+	 *
+	 * @param retrofit Retrofit
+	 * @return HomeApiService
+	 */
+	@Singleton
+	@Provides
+	fun provideHomeApiService(retrofit: Retrofit): HomeApiService {
+		return retrofit.create(HomeApiService::class.java)
+	}
 }

@@ -18,26 +18,26 @@ import javax.inject.Inject
  */
 class MainRepository @Inject constructor() : BaseRepository() {
 
-    @Inject
-    lateinit var mApi: HomeApiService
+	@Inject
+	lateinit var mApi: HomeApiService
 
-    @Inject
-    lateinit var historyDao: SearchHistoryDao
+	@Inject
+	lateinit var historyDao: SearchHistoryDao
 
-    /**
-     * 模拟获取数据
-     */
-    suspend fun getData(search: String) = request<List<CardResult>> {
-        val res = mApi.getSearch(search)
-        emit(res.result)
-    }
+	/**
+	 * 模拟获取数据
+	 */
+	suspend fun getData(search: String) = request<List<CardResult>> {
+		val res = mApi.getSearch(search)
+		emit(res.result)
+	}
 
-    fun search(query: String) =
-        Pager(PagingConfig(pageSize = 20)) { SearchPagingSource(mApi, query) }.flow
+	fun search(query: String) =
+		Pager(PagingConfig(pageSize = 20)) { SearchPagingSource(mApi, query) }.flow
 
-    fun insertSearchHistory(bean: SearchHistoryBean) {
-        historyDao.insert(bean)
-    }
+	fun insertSearchHistory(bean: SearchHistoryBean) {
+		historyDao.insert(bean)
+	}
 
-    fun getRecentList() = historyDao.getRecentList()
+	fun getRecentList() = historyDao.getRecentList()
 }

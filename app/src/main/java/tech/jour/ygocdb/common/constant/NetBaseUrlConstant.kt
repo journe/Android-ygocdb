@@ -17,4 +17,5 @@ internal object NetBaseUrlConstant {
 		}
 
 	const val SEARCH = "/api/v0/"
+	const val CARDID = "/api/v0/card/"
 }

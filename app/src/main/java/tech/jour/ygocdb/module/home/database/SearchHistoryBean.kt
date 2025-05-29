@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class SearchHistoryBean(
-    @PrimaryKey
-    val query: String,
-    val updateTime: Long,
+	@PrimaryKey
+	val query: String,
+	val updateTime: Long,
 )

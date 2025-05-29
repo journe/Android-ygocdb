@@ -10,7 +10,8 @@ import tech.jour.ygocdb.model.CardText
  * Description: 自定义背景的Attach弹窗
  * Create by lxj, at 2019/3/13
  */
-class CardDetailAttachPopup(context: Context, private val cardText: CardText) : AttachPopupView(context) {
+class CardDetailAttachPopup(context: Context, private val cardText: CardText) :
+	AttachPopupView(context) {
 	override fun getImplLayoutId(): Int {
 		return R.layout.custom_attach_popup
 	}

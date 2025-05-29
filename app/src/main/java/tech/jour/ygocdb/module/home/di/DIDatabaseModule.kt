@@ -13,15 +13,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class DIDatabaseModule {
-    @Singleton
-    @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return AppDatabase.getInstance(context)
-    }
+	@Singleton
+	@Provides
+	fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+		return AppDatabase.getInstance(context)
+	}
 
-    @Provides
-    fun provideSearchHistoryDao(appDatabase: AppDatabase): SearchHistoryDao {
-        return appDatabase.searchHistoryDao()
-    }
+	@Provides
+	fun provideSearchHistoryDao(appDatabase: AppDatabase): SearchHistoryDao {
+		return appDatabase.searchHistoryDao()
+	}
 
 }

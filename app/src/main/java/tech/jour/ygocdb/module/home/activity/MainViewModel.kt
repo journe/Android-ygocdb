@@ -27,6 +27,8 @@ class MainViewModel @Inject constructor(private val mRepository: MainRepository)
 	private val _searchResult = MutableLiveData<PagingData<CardResult>>()
 	val searchResult: LiveData<PagingData<CardResult>> = _searchResult
 
+	val showEmptyView = MutableLiveData(true)
+
 	/**
 	 * 模拟获取数据
 	 */
@@ -42,6 +44,7 @@ class MainViewModel @Inject constructor(private val mRepository: MainRepository)
 
 	fun submitSearch(search: String) {
 		if (search.isNotEmpty()) {
+			showEmptyView.postValue(false)
 			viewModelScope.launch {
 				insertSearchHistory(
 					SearchHistoryBean(

@@ -1,8 +1,10 @@
 package tech.jour.ygocdb.module.home.net
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import tech.jour.ygocdb.common.constant.NetBaseUrlConstant
+import tech.jour.ygocdb.model.CardIdDetail
 import tech.jour.ygocdb.model.SearchListBean
 
 /**
@@ -11,5 +13,8 @@ import tech.jour.ygocdb.model.SearchListBean
 interface HomeApiService {
 	@GET(NetBaseUrlConstant.SEARCH)
 	suspend fun getSearch(@Query("search") search: String): SearchListBean
+
+	@GET("/api/v0/card/{id}")
+	suspend fun getByCardId(@Path("id") cardId: Long): CardIdDetail
 
 }

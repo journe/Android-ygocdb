@@ -11,22 +11,22 @@ import tech.jour.ygocdb.databinding.FragmentSettingBinding
 
 
 class SettingFragment : BaseFragment<FragmentSettingBinding, EmptyViewModel>() {
-    override val mViewModel: EmptyViewModel by viewModels()
-    override fun FragmentSettingBinding.initView() {
-        mBinding.emailAdress.clickDelay {
-            ClipboardUtils.copyText("androidcoder.lv@qq.com")
-            val data = Intent(Intent.ACTION_SENDTO)
-            data.data = Uri.parse("mailto:androidcoder.lv@qq.com")
-            data.putExtra(Intent.EXTRA_SUBJECT, "ygocdb-android Feedback")
-            data.putExtra(Intent.EXTRA_TEXT, "")
-            startActivity(data)
-        }
-    }
+	override val mViewModel: EmptyViewModel by viewModels()
+	override fun FragmentSettingBinding.initView() {
+		mBinding.emailAdress.clickDelay {
+			ClipboardUtils.copyText("androidcoder.lv@qq.com")
+			val data = Intent(Intent.ACTION_SENDTO)
+			data.data = Uri.parse("mailto:androidcoder.lv@qq.com")
+			data.putExtra(Intent.EXTRA_SUBJECT, "ygocdb-android Feedback")
+			data.putExtra(Intent.EXTRA_TEXT, "")
+			startActivity(data)
+		}
+	}
 
-    override fun initObserve() {
-    }
+	override fun initObserve() {
+	}
 
-    override fun initRequestData() {
-    }
+	override fun initRequestData() {
+	}
 
 }
