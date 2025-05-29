@@ -1,0 +1,25 @@
+<resources>
+  <string-array name="array_list_type">
+    <item>单列详细展示</item>
+    <item>双列简略展示</item>
+  </string-array>
+  <string-array name="array_list_type_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
+  <string-array name="array_name_type">
+    <item>YGOPro</item>
+    <item>简中官方</item>
+    <item>MD</item>
+    <item>NWBBS</item>
+    <item>CNOCG</item>
+  </string-array>
+
+  <string-array name="array_name_type_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+  </string-array>
+</resources>

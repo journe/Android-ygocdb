@@ -1,0 +1,69 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
+
+    <PreferenceCategory
+        app:title="界面设置"
+        app:iconSpaceReserved="false">
+        <ListPreference
+            app:key="setting_list_type"
+            app:title="搜索列表样式"
+            app:entries="@array/array_list_type"
+            app:entryValues="@array/array_list_type_values"
+            app:dialogTitle="搜索列表展示样式"
+            app:defaultValue="0"
+            app:iconSpaceReserved="false">
+        </ListPreference>
+        <ListPreference
+            app:key="setting_name_type"
+            app:title="主要显示译名"
+            app:entries="@array/array_name_type"
+            app:entryValues="@array/array_name_type_values"
+            app:dialogTitle="主要显示译名"
+            app:defaultValue="1"
+            app:iconSpaceReserved="false">
+        </ListPreference>
+
+<!--        <EditTextPreference-->
+<!--            app:key="setting_walk"-->
+<!--            app:title="@string/setting_walk"-->
+<!--            app:defaultValue="@string/setting_walk_default"-->
+<!--            app:summary="@string/setting_walk_default"-->
+<!--            app:iconSpaceReserved="false"/>-->
+
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory-->
+<!--        app:title="@string/setting_group_log"-->
+<!--        app:iconSpaceReserved="false">-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="setting_log_off"-->
+<!--            app:title="@string/setting_log_off"-->
+<!--            app:defaultValue="false"-->
+<!--            app:iconSpaceReserved="false"/>-->
+<!--        <EditTextPreference-->
+<!--            app:key="setting_pos_history"-->
+<!--            app:title="@string/setting_pos_history"-->
+<!--            app:defaultValue="@string/history_expiration"-->
+<!--            app:summary="@string/history_expiration"-->
+<!--            app:iconSpaceReserved="false"/>-->
+<!--    </PreferenceCategory>-->
+
+    <PreferenceCategory
+        app:title="@string/drawer_about"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="setting_version"
+            app:title="@string/setting_version"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:key="setting_author"
+            app:title="@string/setting_author"
+            app:defaultValue="jourtech"
+            app:summary="jourtech"
+            app:iconSpaceReserved="false"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

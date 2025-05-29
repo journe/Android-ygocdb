@@ -1,33 +1,27 @@
 package tech.jour.ygocdb.module.home.fragment
 
-/**
- * Created by journey on 2022/4/16.
- */
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil.ItemCallback
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.util.SmartGlideImageLoader
-import tech.jour.ygocdb.databinding.FragmentSearchListItemBinding
+import tech.jour.ygocdb.R
+import tech.jour.ygocdb.base.ktx.clickDelay
+import tech.jour.ygocdb.databinding.FragmentSearchListItemType1Binding
 import tech.jour.ygocdb.model.CardResult
 import tech.jour.ygocdb.model.SettingBean
-import tech.jour.ygocdb.model.cardUrl
 import tech.jour.ygocdb.model.cardUrlBig
 import tech.jour.ygocdb.module.home.CardDetailAttachPopup
 import tech.jour.ygocdb.module.settingLiveData
 
-open class SearchResultAdapter :
-	PagingDataAdapter<CardResult, RecyclerView.ViewHolder>(
-		DIFF_CALLBACK
-	) {
 
+class SearchResultAdapterType1 : SearchResultAdapter() {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 		return ViewHolder(
-			FragmentSearchListItemBinding.inflate(
+			FragmentSearchListItemType1Binding.inflate(
 				LayoutInflater.from(parent.context),
 				parent,
 				false
@@ -41,7 +35,7 @@ open class SearchResultAdapter :
 		holder.bind(item)
 	}
 
-	inner class ViewHolder(private val binding: FragmentSearchListItemBinding) :
+	inner class ViewHolder(private val binding: FragmentSearchListItemType1Binding) :
 		RecyclerView.ViewHolder(binding.root) {
 		fun bind(item: CardResult) {
 			val onClickListener = View.OnClickListener {
@@ -56,65 +50,44 @@ open class SearchResultAdapter :
 				when (settingLiveData.value?.cardNameType) {
 					is SettingBean.CardNameType.CNOCG -> {
 						cardCnNameTv.text = item.cnocg_n
-						cardMdNameTv.text = item.sc_name
 					}
 
 					is SettingBean.CardNameType.Cn -> {
 						cardCnNameTv.text = item.sc_name
-						cardMdNameTv.text = item.cn_name
 					}
 
 					is SettingBean.CardNameType.MD -> {
 						cardCnNameTv.text = item.md_name
-						cardMdNameTv.text = item.cn_name
 					}
 
 					is SettingBean.CardNameType.NWBBS -> {
 						cardCnNameTv.text = item.nwbbs_n
-						cardMdNameTv.text = item.sc_name
 					}
 
 					is SettingBean.CardNameType.YGOPro -> {
 						cardCnNameTv.text = item.cn_name
-						cardMdNameTv.text = item.sc_name
 					}
 
 					else -> {
 						cardCnNameTv.text = item.sc_name
-						cardMdNameTv.text = item.cn_name
 					}
 				}
 
-				cardJpNameTv.text = item.jp_name
 				cardEnNameTv.text = item.en_name
-				cardCLickView.setOnClickListener(onClickListener)
-				cardId.text = item.id.toString()
-				cardCid.text = item.cid.toString()
-				cardIv.load(item.cardUrl())
+//				cardCLickView.setOnClickListener(onClickListener)
+//				cardId.text = item.id.toString()
+//				cardCid.text = item.cid.toString()
+				cardIv.load(item.cardUrlBig())
 				cardIv.setOnClickListener {
 					XPopup.Builder(it.context)
 						.asImageViewer(cardIv, item.cardUrlBig(), SmartGlideImageLoader())
 						.show()
 				}
+				root.clickDelay {
+					root.findNavController().navigate(R.id.aboutFragment)
+				}
 			}
 		}
 	}
 
-	companion object {
-		private val DIFF_CALLBACK = object : ItemCallback<CardResult>() {
-			override fun areItemsTheSame(
-				oldItem: CardResult,
-				newItem: CardResult
-			): Boolean {
-				return oldItem.id == newItem.id
-			}
-
-			override fun areContentsTheSame(
-				oldItem: CardResult,
-				newItem: CardResult
-			): Boolean {
-				return oldItem.id == newItem.id
-			}
-		}
-	}
 }

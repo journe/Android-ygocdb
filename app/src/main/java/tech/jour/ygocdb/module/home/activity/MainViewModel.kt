@@ -1,5 +1,7 @@
 package tech.jour.ygocdb.module.home.activity
 
+import android.content.SharedPreferences
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -28,6 +30,9 @@ class MainViewModel @Inject constructor(private val mRepository: MainRepository)
 	val searchResult: LiveData<PagingData<CardResult>> = _searchResult
 
 	val showEmptyView = MutableLiveData(true)
+
+	var sharedPreferences: SharedPreferences? = null
+
 
 	/**
 	 * 模拟获取数据
@@ -66,4 +71,5 @@ class MainViewModel @Inject constructor(private val mRepository: MainRepository)
 	}
 
 	fun getRecentList() = mRepository.getRecentList()
+
 }
