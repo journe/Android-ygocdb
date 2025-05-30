@@ -14,7 +14,7 @@
       android:layout_marginBottom="8dp"
       android:paddingStart="8dp"
       android:paddingEnd="8dp"
-      app:cardBackgroundColor="@color/material_dynamic_primary0"
+      app:cardBackgroundColor="?attr/colorAccent"
       app:cardCornerRadius="4dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/material_dynamic_primary100"
+        android:textColor="?attr/colorOnPrimary"
         tools:text="OCG"
         />
   </com.google.android.material.card.MaterialCardView>
@@ -34,7 +34,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
-      android:textColor="@color/material_dynamic_primary50"
+      android:textColor="?attr/colorSecondary"
       app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
       app:layout_constraintStart_toEndOf="@+id/materialCardView"
       app:layout_constraintTop_toTopOf="@+id/materialCardView"

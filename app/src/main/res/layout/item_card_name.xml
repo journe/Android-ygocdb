@@ -31,7 +31,7 @@
           android:layout_marginTop="16dp"
           android:text="发布包"
           android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-          android:textColor="@color/material_dynamic_primary50"
+          android:textColor="?attr/colorPrimary"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
@@ -55,7 +55,7 @@
           android:layout_marginTop="8dp"
           android:text="译名"
           android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-          android:textColor="@color/material_dynamic_primary50"
+          android:textColor="?attr/colorPrimary"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/availRv"
           />
@@ -154,7 +154,7 @@
           android:layout_marginTop="16dp"
           android:text="收录包"
           android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-          android:textColor="@color/material_dynamic_primary50"
+          android:textColor="?attr/colorPrimary"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/ygonameTv"
           />
