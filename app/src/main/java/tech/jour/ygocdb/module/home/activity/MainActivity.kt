@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 			1 -> settingLiveData.value?.cardListType = CardListType.DoubleList()
 		}
 
-		val nameType = sharedPreferences.getString("setting_name_type", "1")?.toInt()
+		val nameType = sharedPreferences.getString("setting_name_type", "0")?.toInt()
 		when (nameType) {
 			0 -> settingLiveData.value?.cardNameType = SettingBean.CardNameType.YGOPro()
 			1 -> settingLiveData.value?.cardNameType = SettingBean.CardNameType.Cn()

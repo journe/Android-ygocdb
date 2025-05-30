@@ -121,7 +121,10 @@ dependencies {
 //    implementation 'eu.davidea:flexible-adapter:5.1.0'
     implementation 'com.blankj:utilcodex:1.31.1'
 
-//    debugImplementation 'com.guolindev.glance:glance:1.1.0'
+    implementation 'org.jsoup:jsoup:1.13.1'
+
+    
+    //    debugImplementation 'com.guolindev.glance:glance:1.1.0'
     debugImplementation 'cat.ereza:customactivityoncrash:2.4.0'
 }
 // Allow references to generated code

@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import tech.jour.ygocdb.base.ktx.launchIO
 import tech.jour.ygocdb.base.mvvm.vm.BaseViewModel
+import tech.jour.ygocdb.model.CardDetailJsoupBean
 import tech.jour.ygocdb.model.CardResult
 import tech.jour.ygocdb.module.home.database.SearchHistoryBean
 import javax.inject.Inject
@@ -33,6 +34,7 @@ class MainViewModel @Inject constructor(private val mRepository: MainRepository)
 
 	var sharedPreferences: SharedPreferences? = null
 
+	val cardDetailJsoupBean = MutableLiveData<CardDetailJsoupBean>()
 
 	/**
 	 * 模拟获取数据
@@ -71,5 +73,13 @@ class MainViewModel @Inject constructor(private val mRepository: MainRepository)
 	}
 
 	fun getRecentList() = mRepository.getRecentList()
+
+	fun getCardDetail(cardId: Long) {
+		launchIO {
+			mRepository.getCardDetail(cardId)
+				.catch { Logger.d("getData: $it") }
+				.collect { cardDetailJsoupBean.postValue(it) }
+		}
+	}
 
 }

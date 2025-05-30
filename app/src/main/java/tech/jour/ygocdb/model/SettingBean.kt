@@ -2,7 +2,7 @@ package tech.jour.ygocdb.model
 
 data class SettingBean(
 	var cardListType: CardListType = CardListType.SingleList(),
-	var cardNameType: CardNameType = CardNameType.Cn()
+	var cardNameType: CardNameType = CardNameType.YGOPro()
 ) {
 	sealed class CardListType(val type: Int) {
 		class SingleList() : CardListType(0)

@@ -4,21 +4,12 @@ package tech.jour.ygocdb.module.home.fragment
  * Created by journey on 2022/4/16.
  */
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.lxj.xpopup.XPopup
-import com.lxj.xpopup.util.SmartGlideImageLoader
 import tech.jour.ygocdb.databinding.FragmentSearchListItemBinding
 import tech.jour.ygocdb.model.CardResult
-import tech.jour.ygocdb.model.SettingBean
-import tech.jour.ygocdb.model.cardUrl
-import tech.jour.ygocdb.model.cardUrlBig
-import tech.jour.ygocdb.module.home.CardDetailAttachPopup
-import tech.jour.ygocdb.module.settingLiveData
 
 open class SearchResultAdapter :
 	PagingDataAdapter<CardResult, RecyclerView.ViewHolder>(
@@ -36,68 +27,10 @@ open class SearchResultAdapter :
 	}
 
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-		val item = getItem(position)!!
-		holder as ViewHolder
-		holder.bind(item)
 	}
 
 	inner class ViewHolder(private val binding: FragmentSearchListItemBinding) :
 		RecyclerView.ViewHolder(binding.root) {
-		fun bind(item: CardResult) {
-			val onClickListener = View.OnClickListener {
-				XPopup.Builder(binding.root.context)
-					.isDestroyOnDismiss(true)
-					.atView(binding.cardCnNameTv)
-					.hasShadowBg(true) // 半透明背景
-					.asCustom(CardDetailAttachPopup(binding.root.context, item.text))
-					.show()
-			}
-			binding.apply {
-				when (settingLiveData.value?.cardNameType) {
-					is SettingBean.CardNameType.CNOCG -> {
-						cardCnNameTv.text = item.cnocg_n
-						cardMdNameTv.text = item.sc_name
-					}
-
-					is SettingBean.CardNameType.Cn -> {
-						cardCnNameTv.text = item.sc_name
-						cardMdNameTv.text = item.cn_name
-					}
-
-					is SettingBean.CardNameType.MD -> {
-						cardCnNameTv.text = item.md_name
-						cardMdNameTv.text = item.cn_name
-					}
-
-					is SettingBean.CardNameType.NWBBS -> {
-						cardCnNameTv.text = item.nwbbs_n
-						cardMdNameTv.text = item.sc_name
-					}
-
-					is SettingBean.CardNameType.YGOPro -> {
-						cardCnNameTv.text = item.cn_name
-						cardMdNameTv.text = item.sc_name
-					}
-
-					else -> {
-						cardCnNameTv.text = item.sc_name
-						cardMdNameTv.text = item.cn_name
-					}
-				}
-
-				cardJpNameTv.text = item.jp_name
-				cardEnNameTv.text = item.en_name
-				cardCLickView.setOnClickListener(onClickListener)
-				cardId.text = item.id.toString()
-				cardCid.text = item.cid.toString()
-				cardIv.load(item.cardUrl())
-				cardIv.setOnClickListener {
-					XPopup.Builder(it.context)
-						.asImageViewer(cardIv, item.cardUrlBig(), SmartGlideImageLoader())
-						.show()
-				}
-			}
-		}
 	}
 
 	companion object {

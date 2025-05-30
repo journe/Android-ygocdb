@@ -6,11 +6,6 @@
     app:startDestination="@id/homeFragment">
 
   <fragment
-      android:id="@+id/searchFragment"
-      android:name="tech.jour.ygocdb.module.home.fragment.SearchFragment"
-      android:label="@string/app_name"
-      tools:layout="@layout/fragment_search" />
-  <fragment
       android:id="@+id/homeFragment"
       android:name="tech.jour.ygocdb.module.home.fragment.HomeFragment"
       android:label="@string/app_name"
@@ -25,4 +20,19 @@
       android:name="tech.jour.ygocdb.module.home.fragment.AboutFragment"
       android:label="@string/drawer_about"
       tools:layout="@layout/fragment_about" />
+  <fragment
+      android:id="@+id/cardDetailFragment"
+      android:name="tech.jour.ygocdb.module.home.fragment.card.CardDetailFragment"
+      android:label="卡片详情"
+      tools:layout="@layout/fragment_card_detail" />
+  <fragment
+      android:id="@+id/debugFragment"
+      android:name="tech.jour.ygocdb.module.home.fragment.debug.DebugFragment"
+      android:label="测试"
+      tools:layout="@layout/fragment_debug" />
+  <fragment
+      android:id="@+id/debugAPIFragment"
+      android:name="tech.jour.ygocdb.module.home.fragment.debug.DebugAPIFragment"
+      android:label="DebugAPI"
+      tools:layout="@layout/fragment_debug_api" />
 </navigation>

@@ -19,7 +19,7 @@
             app:entries="@array/array_name_type"
             app:entryValues="@array/array_name_type_values"
             app:dialogTitle="主要显示译名"
-            app:defaultValue="1"
+            app:defaultValue="0"
             app:iconSpaceReserved="false">
         </ListPreference>
 
@@ -58,12 +58,12 @@
             app:title="@string/setting_version"
             app:iconSpaceReserved="false"/>
 
-        <Preference
-            app:key="setting_author"
-            app:title="@string/setting_author"
-            app:defaultValue="jourtech"
-            app:summary="jourtech"
-            app:iconSpaceReserved="false"/>
+<!--        <Preference-->
+<!--            app:key="setting_author"-->
+<!--            app:title="@string/setting_author"-->
+<!--            app:defaultValue="jourtech"-->
+<!--            app:summary="Mercury233  jourtech"-->
+<!--            app:iconSpaceReserved="false"/>-->
     </PreferenceCategory>
 
 </PreferenceScreen>

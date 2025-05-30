@@ -1,14 +1,6 @@
 package tech.jour.ygocdb.model
 
 /**
- * Created by journey on 2022/4/15.
- */
-data class SearchListBean(
-	val next: Int? = null,
-	val result: List<CardResult> = emptyList<CardResult>()
-)
-
-/**
  *         {
  *             "cid": 17414,
  *             "id": 74078255,
@@ -47,40 +39,30 @@ data class SearchListBean(
  *             "artid": 0
  *         }
  */
-data class CardResult(
+data class CardDetailJsoupBean(
 	val cid: Int? = null,
-	val id: Long? = null,
-	val cn_name: String = "",
-	val sc_name: String = "",
-	val md_name: String = "",
-	val nwbbs_n: String = "",
-	val cnocg_n: String = "",
-	val jp_ruby: String = "",
-	val jp_name: String = "",
-	val en_name: String = "",
-	val text: CardText? = null,
-	val `data`: CardData? = null,
-	val weight: Int? = null,
-	val faqs: List<String>? = null,
-	val artid: Int? = null
-)
+	val avail: List<AvailPack> = emptyList(),
+	val packs: List<PackData> = emptyList(),
+	val supplements: List<String> = emptyList(),
+	val faqs: List<FaqData> = emptyList(),
+) {
+	data class PackData(
+		var id: Long? = null,
+		var date: String? = null,
+		var code: String? = null,
+		var name: String? = null,
+	)
 
-data class CardData(
-	val atk: Int,
-	val attribute: Int,
-	val def: Int,
-	val level: Int,
-	val ot: Int,
-	val race: Int,
-	val setcode: Long,
-	val type: Int
-)
+	data class AvailPack(
+		var id: Long? = null,
+		var tag: String? = null,
+		var name: String? = null,
+	)
 
-data class CardText(
-	val desc: String,
-	val pdesc: String,
-	val types: String
-)
+	data class FaqData(
+		var title: String = "",
+		var question: String = "",
+		var answer: String = "",
+	)
 
-fun CardResult.cardUrl() = "https://cdn.233.momobako.com/ygopro/pics/${this.id}.jpg!half"
-fun CardResult.cardUrlBig() = "https://cdn.233.momobako.com/ygopro/pics/${this.id}.jpg"
+}

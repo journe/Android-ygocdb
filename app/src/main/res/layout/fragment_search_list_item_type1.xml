@@ -41,7 +41,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/card_cn_name_tv"
+        android:id="@+id/nameTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -57,7 +57,7 @@
         />
 
     <TextView
-        android:id="@+id/card_en_name_tv"
+        android:id="@+id/enTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -65,9 +65,9 @@
         android:textColor="#00a296"
         android:textSize="@dimen/text_size_medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/card_cn_name_tv"
-        app:layout_constraintStart_toStartOf="@+id/card_cn_name_tv"
-        app:layout_constraintTop_toBottomOf="@+id/card_cn_name_tv"
+        app:layout_constraintEnd_toEndOf="@+id/nameTv"
+        app:layout_constraintStart_toStartOf="@+id/nameTv"
+        app:layout_constraintTop_toBottomOf="@+id/nameTv"
         tools:text="@tools:sample/full_names"
         />
 
